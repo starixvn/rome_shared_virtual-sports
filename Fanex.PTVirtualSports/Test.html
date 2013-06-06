@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="UI/Core2.css" rel="stylesheet" type="text/css" />
+    <script src="UI/Languages/en.js" type="text/javascript"></script>
+    <script src="UI/Core.js" type="text/javascript"></script>
+    <script src="UI/GridHeader.js" type="text/javascript"></script>
+    <script src="UI/BettingLimit.js" type="text/javascript"></script>
+    <script src="UI/BetType.js" type="text/javascript"></script>
+    <script src="UI/Config.js" type="text/javascript"></script>
+</head>
+<body>
+    <input type="checkbox" id="box6" value="6" checked="" style="visibility: hidden;" />
+    <a href="javascript:Popups.Confirm(0.3);" style="visibility: hidden;">Confirm</a>
+    <br />
+    <a href="javascript:notify(this,'2,1,1');">Click Agent Edit Member</a>
+    <br />
+    <a href="javascript:notify(this,'3,2,1');">Click Master Edit Agent</a>
+    <br />
+    <a href="javascript:notify(this,'3,1,1');">Click Master Edit Member</a>
+    <br />
+    <a href="javascript:notify(this,'4,3,1');">Click Super Edit Master</a>
+    <br />
+    <a href="javascript:notify(this,'4,1,1');">Click Super Edit Member</a>
+    <br />
+    <a href="javascript:notify(this,'0,4,1');">Click Com Edit Super</a>
+    <br />
+    <input id="btnSave" type="button" value="Save" onclick="Save()" />
+    <script type="text/javascript">
+        var grid1 = null;
+        var bettingLimit1 = null;
+        function notify(x, y) { // x - element, y - tag
+            var roles = y.split(',');
+            var customerName = "customer_" + roles.join('');
+            var customer = window[customerName];
+            if (customer == undefined) {
+                alert("Don't find " + customerName + ". Please declare it in Config.js");
+                return;
+            }
+
+            var contextName = "context_" + roles.join('');
+            var context = window[contextName];
+            if (customer == undefined) {
+                alert("Don't find " + contextName + ". Please declare it in Config.js");
+                return;
+            }
+
+            Fanex.PTVirtualSports.CURRENT_CONTEXT = context;
+            grid1 = new Fanex.PTVirtualSports.PTGrid(customer.ptSetting);
+            var ptContainer = document.getElementById('ptContainer');
+            ptContainer.innerHTML = "";
+            grid1.Render(ptContainer);
+
+            bettingLimit1 = new Fanex.PTVirtualSports.BettingLimit(customer.bettingLimit);
+            var bettingLimitContainer = document.getElementById('bettingLimitContainer');
+            bettingLimitContainer.innerHTML = "";
+            bettingLimit1.Render(bettingLimitContainer, IsHideTextBox(context));
+
+        };
+
+        function Save() {
+            bettingLimit1.Validate();
+//            console.log(bettingLimit1.Save());
+//            console.log(grid1.Save());
+        }
+
+        function IsHideTextBox(context) {
+            var result = true;
+            if (context.roleId - context.targetRoleId == 1 || context.targetRoleId == 4) {
+                result = false;
+            }            
+            return result;
+        }
+    </script>
+
+    <div id="custInfo"></div>
+
+    <br />
+    <div id="bettingLimitContainer">
+    </div>
+    <br />
+    <div id="ptContainer">
+    </div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+﻿<div class="customerInfoBlock6">
+    <span data-bind="text: customer.userNames"></span>
+</div>
+<div id="divStatus" class="clearBlock">
+    <div class="customerInfoBlock7 b">
+        {static:Resources.Lang.enable}
+    </div>
+    <div class="customerInfoBlock5">
+        <div id="divEnabled" style="float: left; padding-right: 5px;">
+            <input id="chkEnabled" type="checkbox" data-bind="checked: !customer.statusSetting.disableVirtualSports" />
+        </div>
+        <div id="divDownline" class="b" style="float: left;">
+            <input id="chkDownline" type="checkbox" data-bind="checked: !customer.statusSetting.disableDownlinesVirtualSports" />
+            {static:Resources.Lang.downlines}
+        </div>
+        <div id="saveStatus">
+            <input id="btnSaveStatus" type="button" class="save" accountpermisssion="[B]" title="{static:Resources.Lang.saveStatus}" data-bind="click: saveStatus" />
+        </div>
+    </div>
+</div>

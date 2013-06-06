@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{49DCFBE2-6BAC-4954-9E8C-B1FB8E992D0F}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Fanex.PTVirtualSports</RootNamespace>
+    <AssemblyName>Fanex.PTVirtualSports</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UseIISExpress>false</UseIISExpress>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Fanex.Age.UI.Components, Version=1.0.4673.20102, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Fanex.Caching, Version=1.0.404.94, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Fanex.Common, Version=1.0.404.96, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Fanex.Data, Version=0.5.404.54, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Fanex.Logging, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data">
+      <HintPath>..\..\..\Rome\Dependency\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\_Latest Dependencies\Entlib\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
+    <Reference Include="RemotingRef, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dependencies\RemotingRef.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="TplCore, Version=1.0.4455.40129, Culture=neutral, processorArchitecture=MSIL" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Dependencies\Fanex.Age.UI.Components.dll" />
+    <Content Include="Dependencies\Fanex.Caching.dll" />
+    <Content Include="Dependencies\Fanex.Common.dll" />
+    <Content Include="Dependencies\Fanex.Data.dll" />
+    <Content Include="Dependencies\Fanex.Logging.dll" />
+    <Content Include="Dependencies\Newtonsoft.Json.dll" />
+    <Content Include="Dependencies\RemotingRef.dll" />
+    <Content Include="Dependencies\TplCore.dll" />
+    <Content Include="Templates\EditMultiple.htm" />
+    <Content Include="Templates\EditSingle.htm" />
+    <Content Include="Templates\InformationSection.htm" />
+    <Content Include="Templates\StatusSection.htm" />
+    <Content Include="Test.html" />
+    <Content Include="App_GlobalResources\Lang.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Lang.designer.cs</LastGenOutput>
+    </Content>
+    <EmbeddedResource Include="UI\BettingLimit.js" />
+    <EmbeddedResource Include="UI\BetType.js" />
+    <Content Include="UI\Config.js" />
+    <EmbeddedResource Include="UI\Core.css" />
+    <EmbeddedResource Include="UI\Core.js" />
+    <Content Include="UI\Core2.css" />
+    <EmbeddedResource Include="UI\Languages\en.js" />
+    <EmbeddedResource Include="UI\GridHeader.js" />
+    <EmbeddedResource Include="UI\Images\b_add.jpg" />
+    <EmbeddedResource Include="UI\Images\b_down.jpg" />
+    <EmbeddedResource Include="UI\Images\b_sub.jpg" />
+    <EmbeddedResource Include="UI\Images\b_up.jpg" />
+    <EmbeddedResource Include="UI\Images\close.jpg" />
+    <EmbeddedResource Include="UI\Images\copy.png" />
+    <EmbeddedResource Include="UI\Images\copyChecked.png" />
+    <EmbeddedResource Include="UI\Images\copyUnChecked.png" />
+    <EmbeddedResource Include="UI\Images\edit.png" />
+    <EmbeddedResource Include="UI\Images\pointer.png" />
+    <Content Include="UI\knockout-2.0.0.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_GlobalResources\Lang.designer.cs">
+      <DependentUpon>Lang.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="BusinessObjects\Customer.cs" />
+    <Compile Include="BusinessObjects\Result.cs" />
+    <Compile Include="BusinessObjects\VSResult.cs" />
+    <Compile Include="DataAccess\CustomerDataAccess.cs" />
+    <Compile Include="DataAccess\DataAccessBase.cs" />
+    <Compile Include="DataAccess\ICustomerDataAccess.cs" />
+    <Compile Include="Extension\DataRowExtension.cs" />
+    <Compile Include="Extension\HttpContextExtension.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\BaseCustomerService.cs" />
+    <Compile Include="Services\CustomerService.cs" />
+    <Compile Include="Services\ICustomerService.cs" />
+    <Compile Include="Templates\EditMultiple.htm.cs" />
+    <Compile Include="Templates\EditSingle.htm.cs" />
+    <Compile Include="Templates\InformationSection.htm.cs" />
+    <Compile Include="Templates\StatusSection.htm.cs" />
+    <Compile Include="Utilities\CacheRef.cs" />
+    <Compile Include="Extension\CommonExtension.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Fanex.PTEngine\Fanex.PTEngine.csproj">
+      <Project>{B16E08F3-B4F3-4878-A9B4-DBD098222B11}</Project>
+      <Name>Fanex.PTEngine</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>60488</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

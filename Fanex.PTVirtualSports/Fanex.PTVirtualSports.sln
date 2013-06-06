@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.PTVirtualSports", "Fanex.PTVirtualSports.csproj", "{49DCFBE2-6BAC-4954-9E8C-B1FB8E992D0F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.PTEngine", "..\Fanex.PTEngine\Fanex.PTEngine.csproj", "{B16E08F3-B4F3-4878-A9B4-DBD098222B11}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.PTEngine.Age", "..\Fanex.PTEngine.Age\Fanex.PTEngine.Age.csproj", "{2D00F742-F9FF-4649-AAF5-51F1229CB5A1}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://10.18.200.213:8080/
+		SccProjectUniqueName0 = Fanex.PTVirtualSports.csproj
+		SccProjectName0 = .
+		SccAuxPath0 = http://10.18.200.213:8080
+		SccLocalPath0 = .
+		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName1 = ..\\Fanex.PTEngine\\Fanex.PTEngine.csproj
+		SccProjectName1 = ../Fanex.PTEngine
+		SccAuxPath1 = http://10.18.200.213:8080
+		SccLocalPath1 = ..\\Fanex.PTEngine
+		SccProvider1 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName2 = ..\\Fanex.PTEngine.Age\\Fanex.PTEngine.Age.csproj
+		SccProjectName2 = ../Fanex.PTEngine.Age
+		SccAuxPath2 = http://10.18.200.213:8080
+		SccLocalPath2 = ..\\Fanex.PTEngine.Age
+		SccProvider2 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{49DCFBE2-6BAC-4954-9E8C-B1FB8E992D0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49DCFBE2-6BAC-4954-9E8C-B1FB8E992D0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49DCFBE2-6BAC-4954-9E8C-B1FB8E992D0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49DCFBE2-6BAC-4954-9E8C-B1FB8E992D0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B16E08F3-B4F3-4878-A9B4-DBD098222B11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B16E08F3-B4F3-4878-A9B4-DBD098222B11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B16E08F3-B4F3-4878-A9B4-DBD098222B11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B16E08F3-B4F3-4878-A9B4-DBD098222B11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D00F742-F9FF-4649-AAF5-51F1229CB5A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D00F742-F9FF-4649-AAF5-51F1229CB5A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D00F742-F9FF-4649-AAF5-51F1229CB5A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D00F742-F9FF-4649-AAF5-51F1229CB5A1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

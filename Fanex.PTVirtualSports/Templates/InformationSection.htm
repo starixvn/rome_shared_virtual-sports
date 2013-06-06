@@ -1,0 +1,70 @@
+﻿<div class="headerTab">
+    <div id="saveStatus" class="saveDiv">
+        <input id='btnSaveStatus' type="button" accountpermisssion="[B]" class="save" title="{static:Resources.Lang.saveStatus}"
+            data-bind="click: saveStatus" />
+    </div>
+    <div>
+        {static:Resources.Lang.generalInformation}
+    </div>
+</div>
+<div class="clearBlock">
+    <div class="customerInfoBlock1 b">
+        {static:Resources.Lang.username}
+    </div>
+    <div class="customerInfoBlock2">
+        <span data-bind="text: customer.userName"></span>
+    </div>
+    <div class="customerInfoBlock3 b">
+        {static:Resources.Lang.nickname}
+    </div>
+    <div class="customerInfoBlock4">
+        <span data-bind="text: customer.userName2"></span>
+    </div>
+</div>
+<div class="clearBlock">
+    <div class="customerInfoBlock1 b">
+        {static:Resources.Lang.firstname}
+    </div>
+    <div class="customerInfoBlock2">
+        <span data-bind="text: customer.firstName"></span>
+    </div>
+    <div class="customerInfoBlock3 b">
+        {static:Resources.Lang.lblPhone}
+    </div>
+    <div class="customerInfoBlock4">
+        <span data-bind="text: customer.phone"></span>
+    </div>
+</div>
+<div class="clearBlock">
+    <div class="customerInfoBlock1 b">
+        {static:Resources.Lang.lastname}
+    </div>
+    <div class="customerInfoBlock2">
+        <span data-bind="text: customer.lastName"></span>
+    </div>
+    <div class="customerInfoBlock3 b">
+        {static:Resources.Lang.lblMobilePhone}
+    </div>
+    <div class="customerInfoBlock4">
+        <span data-bind="text: customer.mobilePhone"></span>
+    </div>
+</div>
+<div class="clearBlock">
+    <div class="customerInfoBlock1 b">
+        {static:Resources.Lang.lblFax}
+    </div>
+    <div class="customerInfoBlock2">
+        <span data-bind="text: customer.fax"></span>
+    </div>
+    <div class="customerInfoBlock3 b" id="lblEnabled">
+        {static:Resources.Lang.enable}
+    </div>
+    <div class="customerInfoBlock4">
+        <div id="divEnabled" style="float: left; padding-right: 5px;">
+            <input id="chkEnabled" type="checkbox" data-bind="checked: !customer.statusSetting.disableVirtualSports" />
+        </div>
+        <div id="divDownline" class="b">
+            <input id="chkDownline" type="checkbox" data-bind="checked: !customer.statusSetting.disableDownlinesVirtualSports" />{static:Resources.Lang.downlines}
+        </div>
+    </div>
+</div>
