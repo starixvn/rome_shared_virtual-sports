@@ -4,26 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.PTVirtualSports", "Fanex.PTVirtualSports.csproj", "{49DCFBE2-6BAC-4954-9E8C-B1FB8E992D0F}"
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 3
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://10.18.200.213:8080/
-		SccProjectUniqueName0 = Fanex.PTVirtualSports.csproj
-		SccProjectName0 = .
-		SccAuxPath0 = http://10.18.200.213:8080
-		SccLocalPath0 = .
-		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName1 = ..\\Fanex.PTEngine\\Fanex.PTEngine.csproj
-		SccProjectName1 = ../Fanex.PTEngine
-		SccAuxPath1 = http://10.18.200.213:8080
-		SccLocalPath1 = ..\\Fanex.PTEngine
-		SccProvider1 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName2 = ..\\Fanex.PTEngine.Age\\Fanex.PTEngine.Age.csproj
-		SccProjectName2 = ../Fanex.PTEngine.Age
-		SccAuxPath2 = http://10.18.200.213:8080
-		SccLocalPath2 = ..\\Fanex.PTEngine.Age
-		SccProvider2 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
