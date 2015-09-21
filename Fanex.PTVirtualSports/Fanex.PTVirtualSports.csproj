@@ -57,6 +57,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Dependencies\RemotingRef.dll</HintPath>
     </Reference>
+    <Reference Include="Resources, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dependencies\Resources.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />
@@ -82,16 +86,13 @@
     <Content Include="Dependencies\Fanex.Logging.dll" />
     <Content Include="Dependencies\Newtonsoft.Json.dll" />
     <Content Include="Dependencies\RemotingRef.dll" />
+    <Content Include="Dependencies\Resources.dll" />
     <Content Include="Dependencies\TplCore.dll" />
     <Content Include="Templates\EditMultiple.htm" />
     <Content Include="Templates\EditSingle.htm" />
     <Content Include="Templates\InformationSection.htm" />
     <Content Include="Templates\StatusSection.htm" />
     <Content Include="Test.html" />
-    <Content Include="App_GlobalResources\Lang.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>Lang.designer.cs</LastGenOutput>
-    </Content>
     <EmbeddedResource Include="UI\BettingLimit.js" />
     <EmbeddedResource Include="UI\BetType.js" />
     <Content Include="UI\Config.js" />
@@ -120,11 +121,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_GlobalResources\Lang.designer.cs">
-      <DependentUpon>Lang.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="BusinessObjects\Customer.cs" />
     <Compile Include="BusinessObjects\Result.cs" />
     <Compile Include="BusinessObjects\VSResult.cs" />
