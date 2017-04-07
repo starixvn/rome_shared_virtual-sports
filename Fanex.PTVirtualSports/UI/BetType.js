@@ -8,6 +8,8 @@ if (typeof (Fanex.PTVirtualSports) == 'undefined') { // Require Fanex.PTVirtualS
 // [RoleId_] is optional
 // Call method by Method.call(this, arg1, arg2...)
 
+var copiedItem = null;
+
 // Super edit Master
 Fanex.PTVirtualSports.BetType.prototype.Render_0_3_1 = function (owner) { // s3, m3, us3, is3, n3
     box = document.createElement("DIV");
@@ -16,7 +18,9 @@ Fanex.PTVirtualSports.BetType.prototype.Render_0_3_1 = function (owner) { // s3,
     var header = document.createElement("DIV");
     header.innerHTML = this.name;
     header.title = this.title;
+    RenderCopyIcon(this.id, header, 4);
     header.className = "BettingLimitHeader";
+    
     box.appendChild(header); // Header bet type name
 
     if (typeof (this.pt.m3) == 'undefined') { // Add new form doesn't have current value, need to set defaut current value
@@ -38,7 +42,8 @@ Fanex.PTVirtualSports.BetType.prototype.Render_0_3_1 = function (owner) { // s3,
     var selected = this.pt.is3 ? this.pt.us3 : this.pt.s3;
 
     var s3Select = Fanex.PTVirtualSports.PT_RenderSelect(min, max, Fanex.PTVirtualSports.PT_STEP, selected);
-    s3Select.select.id = s3Select.select.name = "s3$" + this.suffixId;
+    s3Select.select.id = "s3$" + this.suffixId;
+    s3Select.select.name = "ptSetting";
     s3Select.className = "BetTypeSelect";
     s3Select.style.minWidth = "204px";
     box.appendChild(s3Select);
@@ -47,7 +52,8 @@ Fanex.PTVirtualSports.BetType.prototype.Render_0_3_1 = function (owner) { // s3,
     var is3Check = document.createElement("INPUT");
     is3Check.type = "checkbox";
     is3Check.checked = is3Check.defaultChecked = this.pt.is3;
-    is3Check.name = is3Check.id = "is3$" + this.suffixId;
+    is3Check.id = "is3$" + this.suffixId;
+    is3Check.name = "ptSetting";
     var is3Div = document.createElement("DIV");
     is3Div.className = "BetTypeCheckbox";
     is3Div.style.minWidth = "85px";
@@ -59,7 +65,8 @@ Fanex.PTVirtualSports.BetType.prototype.Render_0_3_1 = function (owner) { // s3,
     var max = is3 ? m4 : Math.min(m4, Fanex.Round(this.pt.s4 - this.pt.s3));
     var selected = this.pt.m3;
     var m3Select = Fanex.PTVirtualSports.PT_RenderSelect(min, max, Fanex.PTVirtualSports.PT_STEP, selected);
-    m3Select.select.id = s3Select.select.name = "m3$" + this.suffixId;
+    m3Select.select.id = "m3$" + this.suffixId;
+    m3Select.select.name = "ptSetting";
     m3Select.className = "BetTypeSelect";
     m3Select.style.minWidth = "204px";
     box.appendChild(m3Select);
@@ -69,7 +76,8 @@ Fanex.PTVirtualSports.BetType.prototype.Render_0_3_1 = function (owner) { // s3,
     var max = this.pt.m3;
     var selected = this.pt.n3;
     var n3Select = Fanex.PTVirtualSports.PT_RenderSelect(min, max, Fanex.PTVirtualSports.PT_STEP, selected);
-    n3Select.select.id = s3Select.select.name = "n3$" + this.suffixId;
+    n3Select.select.id = "n3$" + this.suffixId;
+    n3Select.select.name = "ptSetting";
     n3Select.className = "BetTypeSelect";
     n3Select.style.minWidth = "204px";
     box.appendChild(n3Select);
@@ -128,9 +136,23 @@ Fanex.PTVirtualSports.BetType.prototype.Render_0_3_1 = function (owner) { // s3,
         this.pt.m3 = parseFloat(m3Select.select.value);
         this.pt.n3 = parseFloat(n3Select.select.value);
 
-        return {
-            id: this.id,
-            pt: this.pt
+        if (copiedItem != null && copiedItem.id == 0 && this.id == 1201) {
+            copiedItem = {
+                id: this.id,
+                pt: this.pt
+            };
+
+            return copiedItem;
+        }
+        else if (copiedItem != null && copiedItem.id != 0) {
+            copiedItem.id = this.id;
+            return copiedItem;
+        }
+        else {
+            return {
+                id: this.id,
+                pt: this.pt
+            }
         }
     }
 
@@ -153,7 +175,9 @@ Fanex.PTVirtualSports.BetType.prototype.Render_2_1_1 = function (owner) { // a1
     var header = document.createElement("DIV");
     header.innerHTML = this.name;
     header.title = this.title;
+    RenderCopyIcon(this.id, header, 1);
     header.className = "BettingLimitHeader";
+
     box.appendChild(header); // Header bet type name
 
     // a1
@@ -161,16 +185,31 @@ Fanex.PTVirtualSports.BetType.prototype.Render_2_1_1 = function (owner) { // a1
     var max = this.pt.a2;
     var selected = this.pt.a1;
     var a1Select = Fanex.PTVirtualSports.PT_RenderSelect(min, max, Fanex.PTVirtualSports.PT_STEP, selected);
-    a1Select.select.id = a1Select.select.name = "a1$" + this.suffixId;
+    a1Select.select.id = "a1$" + this.suffixId;
+    a1Select.select.name = "ptSetting";
     a1Select.className = "BetTypeSelect";
-    a1Select.style.minWidth = "712px";
+    a1Select.style.minWidth = "710px";
     box.appendChild(a1Select);
 
     this.Save = function () {
         this.pt.a1 = parseFloat(a1Select.select.value);
-        return {
-            id: this.id,
-            pt: this.pt
+        if (copiedItem != null && copiedItem.id == 0 && this.id == 1201) {
+            copiedItem = {
+                id: this.id,
+                pt: this.pt
+            };
+
+            return copiedItem;
+        }
+        else if (copiedItem != null && copiedItem.id != 0) {
+            copiedItem.id = this.id;
+            return copiedItem;
+        }
+        else {
+            return {
+                id: this.id,
+                pt: this.pt
+            }
         }
     }
 
@@ -207,7 +246,9 @@ Fanex.PTVirtualSports.BetType.prototype.Render_0_2_1 = function (owner) { // m2,
     var header = document.createElement("DIV");
     header.innerHTML = this.name;
     header.title = this.title;
+    RenderCopyIcon(this.id, header, 4);
     header.className = "BettingLimitHeader";
+
     box.appendChild(header); // Header bet type name
 
     // m2, um2
@@ -215,7 +256,8 @@ Fanex.PTVirtualSports.BetType.prototype.Render_0_2_1 = function (owner) { // m2,
     var max = Math.min(this.pt.m3, this.pt.m4);
     var selected = this.pt.im2 ? this.pt.um2 : this.pt.m2;
     var m2Select = Fanex.PTVirtualSports.PT_RenderSelect(min, max, Fanex.PTVirtualSports.PT_STEP, selected);
-    m2Select.select.id = m2Select.select.name = "m2$" + this.suffixId;
+    m2Select.select.id = "m2$" + this.suffixId;
+    m2Select.select.name = "ptSetting";
     m2Select.className = "BetTypeSelect";
     if (Fanex.PTVirtualSports.CURRENT_CONTEXT.ia3) {
         m2Select.style.minWidth = "204px";
@@ -229,7 +271,8 @@ Fanex.PTVirtualSports.BetType.prototype.Render_0_2_1 = function (owner) { // m2,
     var im2Check = document.createElement("INPUT");
     im2Check.type = "checkbox";
     im2Check.checked = im2Check.defaultChecked = this.pt.im2;
-    im2Check.name = im2Check.id = "im2$" + this.suffixId;
+    im2Check.id = "im2$" + this.suffixId;
+    im2Check.name = "ptSetting";
     var im2Div = document.createElement("DIV");
     im2Div.className = "BetTypeCheckbox";
     im2Div.style.minWidth = "85px";
@@ -244,7 +287,8 @@ Fanex.PTVirtualSports.BetType.prototype.Render_0_2_1 = function (owner) { // m2,
     var max = this.pt.im2 ? Math.min(this.pt.a4, this.pt.m3) : Math.min(this.pt.a4, Fanex.Round(this.pt.m3 - this.pt.m2));
     var selected = this.pt.a2;
     var a2Select = Fanex.PTVirtualSports.PT_RenderSelect(min, max, Fanex.PTVirtualSports.PT_STEP, selected);
-    a2Select.select.id = a2Select.select.name = "a2$" + this.suffixId;
+    a2Select.select.id = "a2$" + this.suffixId;
+    a2Select.select.name = "ptSetting";
     a2Select.className = "BetTypeSelect";
     if (Fanex.PTVirtualSports.CURRENT_CONTEXT.ia3) {
         a2Select.style.minWidth = "204px";
@@ -259,7 +303,8 @@ Fanex.PTVirtualSports.BetType.prototype.Render_0_2_1 = function (owner) { // m2,
     var max = this.pt.a2;
     var selected = this.pt.n2;
     var n2Select = Fanex.PTVirtualSports.PT_RenderSelect(min, max, Fanex.PTVirtualSports.PT_STEP, selected);
-    n2Select.select.id = n2Select.select.name = "n2$" + this.suffixId;
+    n2Select.select.id = "n2$" + this.suffixId;
+    n2Select.select.name = "ptSetting";
     n2Select.className = "BetTypeSelect";
     if (Fanex.PTVirtualSports.CURRENT_CONTEXT.ia3) {
         n2Select.style.minWidth = "204px";
@@ -319,9 +364,23 @@ Fanex.PTVirtualSports.BetType.prototype.Render_0_2_1 = function (owner) { // m2,
         this.pt.n2 = parseFloat(n2Select.select.value);
         this.pt.a2 = parseFloat(a2Select.select.value);
 
-        return {
-            id: this.id,
-            pt: this.pt
+        if (copiedItem != null && copiedItem.id == 0 && this.id == 1201) {
+            copiedItem = {
+                id: this.id,
+                pt: this.pt
+            };
+
+            return copiedItem;
+        }
+        else if (copiedItem != null && copiedItem.id != 0) {
+            copiedItem.id = this.id;
+            return copiedItem;
+        }
+        else {
+            return {
+                id: this.id,
+                pt: this.pt
+            }
         }
     }
 
@@ -340,7 +399,9 @@ Fanex.PTVirtualSports.BetType.prototype.Render_4_1_1 = function (owner) { // s1,
     var header = document.createElement("DIV");
     header.innerHTML = this.name;
     header.title = this.title;
+    RenderCopyIcon(this.id, header, 2, true);
     header.className = "BettingLimitHeader";
+
     box.appendChild(header); // Header bet type name
 
     // s1, us1
@@ -348,9 +409,11 @@ Fanex.PTVirtualSports.BetType.prototype.Render_4_1_1 = function (owner) { // s1,
     var max = this.pt.is1 ? this.pt.l4 : this.pt.s4; // This is not a rule but s1_max already calculated and mapped to s4, us1_max already mapped to l4
     var selected = this.pt.is1 ? this.pt.us1 : this.pt.s1;
     var s1Select = Fanex.PTVirtualSports.PT_RenderSelect(min, max, Fanex.PTVirtualSports.PT_STEP, selected);
-    s1Select.select.id = s1Select.select.name = "s1$" + this.suffixId;
+    s1Select.select.id = "s1$" + this.suffixId;
+    s1Select.select.name = "ptSetting";
     if (!this.pt.is1 && this.pt.is3) {
         s1Select.select.disabled = true;
+        s1Select.select.setAttribute("preDisabled", true);
     }
     s1Select.className = "BetTypeSelect"; 
     s1Select.style.minWidth = "204px";
@@ -360,7 +423,8 @@ Fanex.PTVirtualSports.BetType.prototype.Render_4_1_1 = function (owner) { // s1,
     var is1Check = document.createElement("INPUT");
     is1Check.type = "checkbox";
     is1Check.checked = is1Check.defaultChecked = this.pt.is1;
-    is1Check.name = "is1$" + this.suffixId;
+    is1Check.id = "is1$" + this.suffixId;
+    is1Check.name = "ptSetting";
     var is1Div = document.createElement("DIV");
     is1Div.className = "BetTypeCheckbox";
     is1Div.style.minWidth = "85px";
@@ -427,9 +491,23 @@ Fanex.PTVirtualSports.BetType.prototype.Render_4_1_1 = function (owner) { // s1,
             //this.pt.s1 = 0;
         }
 
-        return {
-            id: this.id,
-            pt: this.pt
+        if (copiedItem != null && copiedItem.id == 0 && this.id == 1201) {
+            copiedItem = {
+                id: this.id,
+                pt: this.pt
+            };
+
+            return copiedItem;
+        }
+        else if (copiedItem != null && copiedItem.id != 0) {
+            copiedItem.id = this.id;
+            return copiedItem;
+        }
+        else {
+            return {
+                id: this.id,
+                pt: this.pt
+            }
         }
     }
 
@@ -452,7 +530,9 @@ Fanex.PTVirtualSports.BetType.prototype.Render_3_1_1 = function (owner) { // m1,
     var header = document.createElement("DIV");
     header.innerHTML = this.name;
     header.title = this.title;
+    RenderCopyIcon(this.id, header, 2);
     header.className = "BettingLimitHeader";
+
     box.appendChild(header); // Header bet type name
 
     // m1
@@ -460,7 +540,8 @@ Fanex.PTVirtualSports.BetType.prototype.Render_3_1_1 = function (owner) { // m1,
     var max = this.pt.im1 ? this.pt.l3 : this.pt.m3; // This is not a rule but m1_max already calculated and mapped to m3, um1_max already mapped to l3
     var selected = this.pt.im1 ? this.pt.um1 : this.pt.m1;
     var m1Select = Fanex.PTVirtualSports.PT_RenderSelect(min, max, Fanex.PTVirtualSports.PT_STEP, selected);
-    m1Select.select.id = m1Select.select.name = "m1$" + this.suffixId;
+    m1Select.select.id = "m1$" + this.suffixId;
+    m1Select.select.name = "ptSetting";
     if (!this.pt.im1 && this.pt.im2) {
         m1Select.select.disabled = true;
     }
@@ -477,7 +558,8 @@ Fanex.PTVirtualSports.BetType.prototype.Render_3_1_1 = function (owner) { // m1,
     var im1Check = document.createElement("INPUT");
     im1Check.type = "checkbox";
     im1Check.checked = im1Check.defaultChecked = this.pt.im1;
-    im1Check.name = "im1$" + this.suffixId;
+    im1Check.id = "im1$" + this.suffixId;
+    im1Check.name = "ptSetting";
     var im1Div = document.createElement("DIV");
     im1Div.className = "BetTypeCheckbox";
     im1Div.style.minWidth = "85px";
@@ -543,9 +625,23 @@ Fanex.PTVirtualSports.BetType.prototype.Render_3_1_1 = function (owner) { // m1,
             //this.pt.m1 = 0;
         }
 
-        return {
-            id: this.id,
-            pt: this.pt
+        if (copiedItem != null && copiedItem.id == 0 && this.id == 1201) {
+            copiedItem = {
+                id: this.id,
+                pt: this.pt
+            };
+
+            return copiedItem;
+        }
+        else if (copiedItem != null && copiedItem.id != 0) {
+            copiedItem.id = this.id;
+            return copiedItem;
+        }
+        else {
+            return {
+                id: this.id,
+                pt: this.pt
+            }
         }
     }
 
@@ -568,7 +664,9 @@ Fanex.PTVirtualSports.BetType.prototype.Render_0_4_1 = function (owner) {
     var header = document.createElement("DIV");
     header.innerHTML = this.name;
     header.title = this.title;
+    RenderCopyIcon(this.id, header, 4);
     header.className = "BettingLimitHeader";
+
     box.appendChild(header); // Header bet type name
 
     // s4
@@ -576,7 +674,8 @@ Fanex.PTVirtualSports.BetType.prototype.Render_0_4_1 = function (owner) {
     var max = this.pt.l4;
     var selected = this.pt.s4;
     var s4Select = Fanex.PTVirtualSports.PT_RenderSelect(min, max, Fanex.PTVirtualSports.PT_STEP, selected);
-    s4Select.select.id = s4Select.select.name = "s4$" + this.suffixId;
+    s4Select.select.id = "s4$" + this.suffixId;
+    s4Select.select.name = "ptSetting";
     s4Select.className = "BetTypeSelect";
     s4Select.style.minWidth = "174px";
     box.appendChild(s4Select);
@@ -597,7 +696,8 @@ Fanex.PTVirtualSports.BetType.prototype.Render_0_4_1 = function (owner) {
     var max = this.pt.s4;
     var selected = this.pt.m4;
     var m4Select = Fanex.PTVirtualSports.PT_RenderSelect(min, max, Fanex.PTVirtualSports.PT_STEP, selected);
-    m4Select.select.id = m4Select.select.name = "m4$" + this.suffixId;
+    m4Select.select.id = "m4$" + this.suffixId;
+    m4Select.select.name = "ptSetting";
     m4Select.className = "BetTypeSelect";
     m4Select.style.minWidth = "174px";
     box.appendChild(m4Select);
@@ -612,7 +712,8 @@ Fanex.PTVirtualSports.BetType.prototype.Render_0_4_1 = function (owner) {
     var max = this.pt.m4;
     var selected = this.pt.a4;
     var a4Select = Fanex.PTVirtualSports.PT_RenderSelect(min, max, Fanex.PTVirtualSports.PT_STEP, selected);
-    a4Select.select.id = a4Select.select.name = "a4$" + this.suffixId;
+    a4Select.select.id = "a4$" + this.suffixId;
+    a4Select.select.name = "ptSetting";
     a4Select.className = "BetTypeSelect";
     a4Select.style.minWidth = "174px";
     box.appendChild(a4Select);
@@ -622,7 +723,8 @@ Fanex.PTVirtualSports.BetType.prototype.Render_0_4_1 = function (owner) {
     var max = this.pt.s4;
     var selected = this.pt.n4;
     var n4Select = Fanex.PTVirtualSports.PT_RenderSelect(min, max, Fanex.PTVirtualSports.PT_STEP, selected);
-    n4Select.select.id = n4Select.select.name = "n4$" + this.suffixId;
+    n4Select.select.id = "n4$" + this.suffixId;
+    n4Select.select.name = "ptSetting";
     n4Select.className = "BetTypeSelect";
     n4Select.style.minWidth = "175px";
     box.appendChild(n4Select);
@@ -636,10 +738,67 @@ Fanex.PTVirtualSports.BetType.prototype.Render_0_4_1 = function (owner) {
         this.pt.m4 = parseFloat(m4Select.select.value);
         this.pt.a4 = parseFloat(a4Select.select.value);
         this.pt.n4 = parseFloat(n4Select.select.value);
-        return {
-            id: this.id,
-            pt: this.pt
+        if (copiedItem != null && copiedItem.id == 0 && this.id == 1201) {
+            copiedItem = {
+                id: this.id,
+                pt: this.pt
+            };
+
+            return copiedItem;
+        }
+        else if (copiedItem != null && copiedItem.id != 0) {
+            copiedItem.id = this.id;
+            return copiedItem;
+        }
+        else {
+            return {
+                id: this.id,
+                pt: this.pt
+            }
         }
     }
     return box;
 };
+
+function RenderCopyIcon(id, header, startIndex, isSuperOnMember) {
+    // Virtual Soccer
+    if (id == 1201) {
+        var copiedClass = document.createElement("DIV");
+        copiedClass.className = "copied";
+        copiedClass.setAttribute("style", "float: right; margin-top: 5px");
+        header.appendChild(copiedClass);
+
+        copiedClass.onclick = function () {
+            var inputs = document.getElementsByName("ptSetting");
+
+            if (copiedClass.className == "copied") {
+                copiedClass.className = "copiedActive";                
+                copiedItem = {
+                    id: 0
+                };
+
+                for (var j = startIndex; j < inputs.length; j++) {
+                    inputs[j].setAttribute("disabled", "disabled");
+                }
+            }
+            else {
+                copiedClass.className = "copied";
+                copiedItem = null;
+
+                if (isSuperOnMember) {
+                    for (var j = startIndex; j < inputs.length; j++) {
+                        inputs[j].removeAttribute("disabled");
+                        if (inputs[j].type == "checkbox" && inputs[j - 1].getAttribute("preDisabled") == "true") {
+                            inputs[j - 1].setAttribute("disabled", "disabled");
+                        }
+                    }
+                }
+                else {
+                    for (var j = startIndex; j < inputs.length; j++) {
+                        inputs[j].removeAttribute("disabled");
+                    }
+                }
+            }
+        };
+    }
+}

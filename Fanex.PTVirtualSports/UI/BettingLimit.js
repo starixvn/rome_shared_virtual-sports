@@ -9,6 +9,8 @@ if (typeof (Validators) == 'undefined') { // Require Validators library
     alert('Require validators library');
 }
 Fanex.PTVirtualSports.BettingLimit = function (source) {
+    this.copiedItem = null;
+
     if (typeof (source) == 'object') {
         this.items = source.bettingLimitItems;
     }
@@ -28,7 +30,7 @@ Fanex.PTVirtualSports.BettingLimit = function (source) {
         var c = this.items.length;
         for (var i = 0; i < c; i++) {
             var item = this.items[i];
-            var copiedItem = item.copiedItem;
+            var copiedItem = this.copiedItem;
             var elementInput = null;
             // Validate each sport type
             if (copiedItem == null) { // Copy checkbox was ticked
@@ -107,15 +109,15 @@ Fanex.PTVirtualSports.BettingLimit = function (source) {
         for (var i = 0; i < c; i++) {
             var item = this.items[i];
             var bettingLimitItem = null;
-            var copiedItem = item.copiedItem;
+            var copiedItem = this.copiedItem;
             if (copiedItem != null) { // Copy checkbox was ticked
                 bettingLimitItem = {
                     id: parseInt(item.id),
                     key: item.key,
                     betTypeId: parseInt(item.betTypeId),
-                    minBet: Fanex.RoundNumber(parseFloat(this.items[copiedItem.id].minBetElement.value, true), 1),
-                    maxBet: Fanex.RoundNumber(parseFloat(this.items[copiedItem.id].maxBetElement.value, true), 1),
-                    maxPerMatch: Fanex.RoundNumber(parseFloat(this.items[copiedItem.id].maxPerMatchElement.value, true), 1)
+                    minBet: Fanex.RoundNumber(parseFloat(this.items[0].minBetElement.value, true), 1),
+                    maxBet: Fanex.RoundNumber(parseFloat(this.items[0].maxBetElement.value, true), 1),
+                    maxPerMatch: Fanex.RoundNumber(parseFloat(this.items[0].maxPerMatchElement.value, true), 1)
                 };
             } else {
                 bettingLimitItem = {
@@ -135,6 +137,7 @@ Fanex.PTVirtualSports.BettingLimit = function (source) {
         };
     }
     this.Render = function (owner, hideTextBox) {
+        var $this = this;
         var box = document.createElement("DIV");
         // Create MinBet, MaxBet, MaxPerMatch header
         var emptyBox = document.createElement("DIV");
@@ -163,6 +166,7 @@ Fanex.PTVirtualSports.BettingLimit = function (source) {
         var c = this.items.length;
         for (var i = 0; i < c; i++) {
             var item = this.items[i];
+            var copiedItem = this.copiedItem;
             var box2 = document.createElement("DIV");
             if (typeof (item.minBet) == 'undefined') { // For Add new case
                 item.minBet = item.minBetMax;
@@ -176,7 +180,7 @@ Fanex.PTVirtualSports.BettingLimit = function (source) {
             var showLimitBox = typeof (item.maxBetMin) != 'undefined';
             var header = document.createElement("DIV");
             header.innerHTML = item.name;
-            header.className = "BettingLimitHeader";
+            header.className = "BettingLimitHeader";            
             item.header = header;
             box2.appendChild(header);
 
@@ -192,6 +196,7 @@ Fanex.PTVirtualSports.BettingLimit = function (source) {
             else {
                 var minBetBox = document.createElement("DIV");
                 var minBet = document.createElement("INPUT");
+                minBet.name = "betLimit";
                 minBet.type = "text";
                 minBet.maxLength = 14;
                 minBet.onkeyup = function (event) { Fanex.FormatNumber(event, true); };
@@ -228,6 +233,7 @@ Fanex.PTVirtualSports.BettingLimit = function (source) {
             else {
                 var maxBetBox = document.createElement("DIV");
                 var maxBet = document.createElement("INPUT");
+                maxBet.name = "betLimit";
                 maxBet.type = "text";
                 maxBet.maxLength = 14;
                 maxBet.onkeyup = function (event) { Fanex.FormatNumber(event, true); };
@@ -249,6 +255,38 @@ Fanex.PTVirtualSports.BettingLimit = function (source) {
                     maxBetBox.className = "BettingLimitItem4";
                     maxBetBox.style.minWidth = "234px";
                     maxBetHeader.className = "BettingLimitHeaderTop4";
+                }
+
+                // Virtual Soccer
+                if (item.betTypeId == 1201) {
+                    var copiedClass = document.createElement("DIV");
+                    copiedClass.className = "copied";
+                    copiedClass.setAttribute("style", "float: right; margin-top: 5px");
+                    header.appendChild(copiedClass);
+
+                    copiedClass.onclick = function () {                        
+                        var inputs = document.getElementsByName("betLimit");
+                        
+                        if (copiedClass.className == "copied") {
+                            copiedClass.className = "copiedActive";
+                            $this.copiedItem = item;
+                            item.copiedItem = {
+                                id: 0
+                            };
+
+                            for (var j = 3; j < inputs.length; j++) {
+                                inputs[j].setAttribute("disabled", "disabled");
+                            }
+                        }
+                        else {
+                            copiedClass.className = "copied";
+                            $this.copiedItem = null;
+
+                            for (var j = 3; j < inputs.length; j++) {
+                                inputs[j].removeAttribute("disabled");
+                            }
+                        }
+                    };
                 }
             }
 
@@ -273,6 +311,7 @@ Fanex.PTVirtualSports.BettingLimit = function (source) {
             else {
                 var maxPerMatchBox = document.createElement("DIV");
                 var maxPerMatch = document.createElement("INPUT");
+                maxPerMatch.name = "betLimit";
                 maxPerMatch.type = "text";
                 maxPerMatch.maxLength = 14;
                 maxPerMatch.onkeyup = function (event) { Fanex.FormatNumber(event, true); };
