@@ -530,7 +530,7 @@ Fanex.PTVirtualSports.BetType.prototype.Render_3_1_1 = function (owner) { // m1,
     var header = document.createElement("DIV");
     header.innerHTML = this.name;
     header.title = this.title;
-    RenderCopyIcon(this.id, header, 2);
+    RenderCopyIcon(this.id, header, 2, true);
     header.className = "BettingLimitHeader";
 
     box.appendChild(header); // Header bet type name
@@ -544,6 +544,7 @@ Fanex.PTVirtualSports.BetType.prototype.Render_3_1_1 = function (owner) { // m1,
     m1Select.select.name = "ptSetting";
     if (!this.pt.im1 && this.pt.im2) {
         m1Select.select.disabled = true;
+        m1Select.select.setAttribute("preDisabled", true);
     }
     m1Select.className = "BetTypeSelect";
     if (Fanex.PTVirtualSports.CURRENT_CONTEXT.ia3) {
@@ -760,7 +761,7 @@ Fanex.PTVirtualSports.BetType.prototype.Render_0_4_1 = function (owner) {
     return box;
 };
 
-function RenderCopyIcon(id, header, startIndex, isSuperOnMember) {
+function RenderCopyIcon(id, header, startIndex, isSuperMasterOnMember) {
     // Virtual Soccer
     if (id == 1201) {
         var copiedClass = document.createElement("DIV");
@@ -785,7 +786,7 @@ function RenderCopyIcon(id, header, startIndex, isSuperOnMember) {
                 copiedClass.className = "copied";
                 copiedItem = null;
 
-                if (isSuperOnMember) {
+                if (isSuperMasterOnMember) {
                     for (var j = startIndex; j < inputs.length; j++) {
                         inputs[j].removeAttribute("disabled");
                         if (inputs[j].type == "checkbox" && inputs[j - 1].getAttribute("preDisabled") == "true") {
