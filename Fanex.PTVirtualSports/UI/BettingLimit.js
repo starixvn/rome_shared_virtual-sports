@@ -277,6 +277,7 @@ Fanex.PTVirtualSports.BettingLimit = function (source) {
                     copiedClass.setAttribute("style", "float: right; margin-top: 5px");
                     header.appendChild(copiedClass);
 
+                    copiedClass.setAttribute('title', Language.COPY_ALL_BETTING_LIMIT_FROM_VIRTUAL_SOCCER);
                     copiedClass.onclick = function () {                        
                         var inputs = document.getElementsByName("betLimit");
                         

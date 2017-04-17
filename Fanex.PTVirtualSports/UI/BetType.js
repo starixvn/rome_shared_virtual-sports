@@ -769,6 +769,7 @@ function RenderCopyIcon(id, header, startIndex, isSuperMasterOnMember) {
         copiedClass.setAttribute("style", "float: right; margin-top: 5px");
         header.appendChild(copiedClass);
 
+        copiedClass.setAttribute('title', Language.COPY_ALL_POSITION_TAKING_FROM_VIRTUAL_SOCCER);
         copiedClass.onclick = function () {
             var inputs = document.getElementsByName("ptSetting");
 
