@@ -44,7 +44,7 @@ Fanex.PTVirtualSports.PTGrid.prototype.Render_2_1_1 = function (owner) {
 	var agentPTHeader = document.createElement("DIV");
 	agentPTHeader.innerHTML = Language.AGENT_PT;
 	agentPTHeader.className = "BetTypeHeader";
-	agentPTHeader.style.minWidth = "712px";
+	agentPTHeader.style.minWidth = "710px";
 	box.appendChild(agentPTHeader);
 	return box;
 }

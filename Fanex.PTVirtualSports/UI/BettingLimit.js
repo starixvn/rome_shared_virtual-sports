@@ -9,6 +9,8 @@ if (typeof (Validators) == 'undefined') { // Require Validators library
     alert('Require validators library');
 }
 Fanex.PTVirtualSports.BettingLimit = function (source) {
+    this.copiedItem = null;
+
     if (typeof (source) == 'object') {
         this.items = source.bettingLimitItems;
     }
@@ -24,80 +26,93 @@ Fanex.PTVirtualSports.BettingLimit = function (source) {
         }
         Validators.animate(elementInput);
     };
+    this.ValidateBettingLimit = function (item) {
+        if (validateExpr.test(item.minBetElement.value) == false) {
+            this.ValidateMessage(item.minBetElement, Language.INCORRECT_MIN_BET);
+            return false;
+        }
+        if (validateExpr.test(item.maxBetElement.value) == false) {
+            this.ValidateMessage(item.maxBetElement, Language.INCORRECT_MAX_BET);
+            return false;
+        }
+        if (validateExpr.test(item.maxPerMatchElement.value) == false) {
+            this.ValidateMessage(item.maxPerMatchElement, Language.INCORRECT_MAX_PER_MATCH);
+            return false;
+        }
+        // Check min bet < max bet < max per match
+        var minBet = parseFloat(item.minBetElement.value, true);
+        var maxBet = parseFloat(item.maxBetElement.value, true);
+        var maxPerMatch = parseFloat(item.maxPerMatchElement.value, true);
+
+        if (minBet == 0 && maxBet == 0 && maxPerMatch == 0) { // all equal zero -> no limit, follow upline setting
+            return true;
+        }
+
+        if (minBet > maxBet) {
+            this.ValidateMessage(item.minBetElement, Language.MIN_BET_LOWER_THAN_MIN_MAX_BET.Format(item.name));
+            return false;
+        }
+        if (minBet > maxPerMatch) {
+            this.ValidateMessage(item.minBetElement, Language.MIN_BET_LOWER_THAN_MIN_MAX_PER_MATCH_BET.Format(item.name));
+            return false;
+        }
+        if (maxBet > maxPerMatch) {
+            this.ValidateMessage(item.maxBetElement, Language.MAX_BET_LOWER_THAN_MIN_MAX_PER_MATCH_BET.Format(item.name));
+            return false;
+        }
+
+        //At member level: agent/admin cannot edit member’s min bet to 0 if his max bet/max pet match is greater than 0.
+        if (Fanex.PTVirtualSports.CURRENT_CONTEXT.targetRoleId == 1) {
+            // Check minbet < minbetmax
+            if (typeof (item.minBetMax) != 'undefined' && item.minBetMax > 0 && minBet < item.minBetMax) {
+                this.ValidateMessage(item.minBetElement, Language.MIN_BET_GREATER_THAN_MIN_MIN_BET.Format(''.FormatNumber(item.minBetMax)));
+                return false;
+            }
+        }
+
+        // Check minbet < minbetmax
+        if (typeof (item.minBetMax) != 'undefined' && item.minBetMax > 0 && minBet < item.minBetMax && minBet != 0) {
+            this.ValidateMessage(item.minBetElement, Language.MIN_BET_GREATER_THAN_MIN_MIN_BET.Format(''.FormatNumber(item.minBetMax)));
+            return false;
+        }
+        // Check maxbet < maxbetmin
+        if (typeof (item.maxBetMin) != 'undefined' && item.maxBetMin > 0 && maxBet > item.maxBetMin && maxBet != 0) {
+            this.ValidateMessage(item.maxBetElement, Language.MAX_BET_LOWER_THAN_MAX_MAX_BET.Format(''.FormatNumber(item.maxBetMin)));
+            return false;
+        }
+        // Check maxpermatch_min < maxpermatch < maxpermatch_max
+        if (typeof (item.maxPerMatchMax) != 'undefined' && item.maxPerMatchMax > 0 && maxPerMatch > item.maxPerMatchMax && maxPerMatch != 0) {
+            this.ValidateMessage(item.maxPerMatchElement, Language.MAX_PER_MATCH_LOWER_THAN_MAX_PER_MATCH_MAX_BET.Format(''.FormatNumber(item.maxPerMatchMax)), -130, 160);
+            return false;
+        }
+
+        return true;
+    };
     this.Validate = function () {
         var c = this.items.length;
         for (var i = 0; i < c; i++) {
             var item = this.items[i];
-            var copiedItem = item.copiedItem;
+            var copiedItem = this.copiedItem;
             var elementInput = null;
             // Validate each sport type
-            if (copiedItem == null) { // Copy checkbox was ticked
-                if (validateExpr.test(item.minBetElement.value) == false) {
-                    this.ValidateMessage(item.minBetElement, Language.INCORRECT_MIN_BET);
+            if (copiedItem == null) { // Copy checkbox was unticked
+                if (!this.ValidateBettingLimit(item)) {
                     return false;
                 }
-                if (validateExpr.test(item.maxBetElement.value) == false) {
-                    this.ValidateMessage(item.maxBetElement, Language.INCORRECT_MAX_BET);
-                    return false;
-                }
-                if (validateExpr.test(item.maxPerMatchElement.value) == false) {
-                    this.ValidateMessage(item.maxPerMatchElement, Language.INCORRECT_MAX_PER_MATCH);
-                    return false;
-                }
-                // Check min bet < max bet < max per match
-                var minBet = parseFloat(item.minBetElement.value, true);
-                var maxBet = parseFloat(item.maxBetElement.value, true);
-                var maxPerMatch = parseFloat(item.maxPerMatchElement.value, true);
-
-                if (minBet == 0 && maxBet == 0 && maxPerMatch == 0) { // all equal zero -> no limit, follow upline setting
-                    if (i != (c - 1)) {
-                        continue;
-                    }
-                    else {
-                        return true;
-                    }
-                }
-
-                if (minBet > maxBet) {
-                    this.ValidateMessage(item.minBetElement, Language.MIN_BET_LOWER_THAN_MIN_MAX_BET.Format(item.name));
-                    return false;
-                }
-                if (minBet > maxPerMatch) {
-                    this.ValidateMessage(item.minBetElement, Language.MIN_BET_LOWER_THAN_MIN_MAX_PER_MATCH_BET.Format(item.name));
-                    return false;
-                }
-                if (maxBet > maxPerMatch) {
-                    this.ValidateMessage(item.maxBetElement, Language.MAX_BET_LOWER_THAN_MIN_MAX_PER_MATCH_BET.Format(item.name));
-                    return false;
-                }
-
-                //At member level: agent/admin cannot edit member’s min bet to 0 if his max bet/max pet match is greater than 0.
-                if (Fanex.PTVirtualSports.CURRENT_CONTEXT.targetRoleId == 1) {
-                    // Check minbet < minbetmax
-                    if (typeof (item.minBetMax) != 'undefined' && item.minBetMax > 0 && minBet < item.minBetMax) {
-                        this.ValidateMessage(item.minBetElement, Language.MIN_BET_GREATER_THAN_MIN_MIN_BET.Format(''.FormatNumber(item.minBetMax)));
+            }
+            else {
+                // Copy icon is checked
+                // Update for bug #75069
+                // Only validate for first item (Virtual Soccer)
+                if (i == 0) {
+                    if (!this.ValidateBettingLimit(item)) {
                         return false;
                     }
-                }
-
-                // Check minbet < minbetmax
-                if (typeof (item.minBetMax) != 'undefined' && item.minBetMax > 0 && minBet < item.minBetMax && minBet != 0) {
-                    this.ValidateMessage(item.minBetElement, Language.MIN_BET_GREATER_THAN_MIN_MIN_BET.Format(''.FormatNumber(item.minBetMax)));
-                    return false;
-                }
-                // Check maxbet < maxbetmin
-                if (typeof (item.maxBetMin) != 'undefined' && item.maxBetMin > 0 && maxBet > item.maxBetMin && maxBet != 0) {
-                    this.ValidateMessage(item.maxBetElement, Language.MAX_BET_LOWER_THAN_MAX_MAX_BET.Format(''.FormatNumber(item.maxBetMin)));
-                    return false;
-                }
-                // Check maxpermatch_min < maxpermatch < maxpermatch_max
-                if (typeof (item.maxPerMatchMax) != 'undefined' && item.maxPerMatchMax > 0 && maxPerMatch > item.maxPerMatchMax && maxPerMatch != 0) {
-                    this.ValidateMessage(item.maxPerMatchElement, Language.MAX_PER_MATCH_LOWER_THAN_MAX_PER_MATCH_MAX_BET.Format(''.FormatNumber(item.maxPerMatchMax)), -130, 160);
-                    return false;
                 }
             }
 
         }
+
         // Success
         return true;
     }
@@ -107,15 +122,15 @@ Fanex.PTVirtualSports.BettingLimit = function (source) {
         for (var i = 0; i < c; i++) {
             var item = this.items[i];
             var bettingLimitItem = null;
-            var copiedItem = item.copiedItem;
+            var copiedItem = this.copiedItem;
             if (copiedItem != null) { // Copy checkbox was ticked
                 bettingLimitItem = {
                     id: parseInt(item.id),
                     key: item.key,
                     betTypeId: parseInt(item.betTypeId),
-                    minBet: Fanex.RoundNumber(parseFloat(this.items[copiedItem.id].minBetElement.value, true), 1),
-                    maxBet: Fanex.RoundNumber(parseFloat(this.items[copiedItem.id].maxBetElement.value, true), 1),
-                    maxPerMatch: Fanex.RoundNumber(parseFloat(this.items[copiedItem.id].maxPerMatchElement.value, true), 1)
+                    minBet: Fanex.RoundNumber(parseFloat(this.items[0].minBetElement.value, true), 1),
+                    maxBet: Fanex.RoundNumber(parseFloat(this.items[0].maxBetElement.value, true), 1),
+                    maxPerMatch: Fanex.RoundNumber(parseFloat(this.items[0].maxPerMatchElement.value, true), 1)
                 };
             } else {
                 bettingLimitItem = {
@@ -135,6 +150,7 @@ Fanex.PTVirtualSports.BettingLimit = function (source) {
         };
     }
     this.Render = function (owner, hideTextBox) {
+        var $this = this;
         var box = document.createElement("DIV");
         // Create MinBet, MaxBet, MaxPerMatch header
         var emptyBox = document.createElement("DIV");
@@ -163,6 +179,7 @@ Fanex.PTVirtualSports.BettingLimit = function (source) {
         var c = this.items.length;
         for (var i = 0; i < c; i++) {
             var item = this.items[i];
+            var copiedItem = this.copiedItem;
             var box2 = document.createElement("DIV");
             if (typeof (item.minBet) == 'undefined') { // For Add new case
                 item.minBet = item.minBetMax;
@@ -176,7 +193,7 @@ Fanex.PTVirtualSports.BettingLimit = function (source) {
             var showLimitBox = typeof (item.maxBetMin) != 'undefined';
             var header = document.createElement("DIV");
             header.innerHTML = item.name;
-            header.className = "BettingLimitHeader";
+            header.className = "BettingLimitHeader";            
             item.header = header;
             box2.appendChild(header);
 
@@ -192,6 +209,7 @@ Fanex.PTVirtualSports.BettingLimit = function (source) {
             else {
                 var minBetBox = document.createElement("DIV");
                 var minBet = document.createElement("INPUT");
+                minBet.name = "betLimit";
                 minBet.type = "text";
                 minBet.maxLength = 14;
                 minBet.onkeyup = function (event) { Fanex.FormatNumber(event, true); };
@@ -228,6 +246,7 @@ Fanex.PTVirtualSports.BettingLimit = function (source) {
             else {
                 var maxBetBox = document.createElement("DIV");
                 var maxBet = document.createElement("INPUT");
+                maxBet.name = "betLimit";
                 maxBet.type = "text";
                 maxBet.maxLength = 14;
                 maxBet.onkeyup = function (event) { Fanex.FormatNumber(event, true); };
@@ -249,6 +268,39 @@ Fanex.PTVirtualSports.BettingLimit = function (source) {
                     maxBetBox.className = "BettingLimitItem4";
                     maxBetBox.style.minWidth = "234px";
                     maxBetHeader.className = "BettingLimitHeaderTop4";
+                }
+
+                // Virtual Soccer
+                if (item.betTypeId == 1201) {
+                    var copiedClass = document.createElement("DIV");
+                    copiedClass.className = "copied";
+                    copiedClass.setAttribute("style", "float: right; margin-top: 5px");
+                    header.appendChild(copiedClass);
+
+                    copiedClass.setAttribute('title', Language.COPY_ALL_BETTING_LIMIT_FROM_VIRTUAL_SOCCER);
+                    copiedClass.onclick = function () {                        
+                        var inputs = document.getElementsByName("betLimit");
+                        
+                        if (copiedClass.className == "copied") {
+                            copiedClass.className = "copiedActive";
+                            $this.copiedItem = item;
+                            item.copiedItem = {
+                                id: 0
+                            };
+
+                            for (var j = 3; j < inputs.length; j++) {
+                                inputs[j].setAttribute("disabled", "disabled");
+                            }
+                        }
+                        else {
+                            copiedClass.className = "copied";
+                            $this.copiedItem = null;
+
+                            for (var j = 3; j < inputs.length; j++) {
+                                inputs[j].removeAttribute("disabled");
+                            }
+                        }
+                    };
                 }
             }
 
@@ -273,6 +325,7 @@ Fanex.PTVirtualSports.BettingLimit = function (source) {
             else {
                 var maxPerMatchBox = document.createElement("DIV");
                 var maxPerMatch = document.createElement("INPUT");
+                maxPerMatch.name = "betLimit";
                 maxPerMatch.type = "text";
                 maxPerMatch.maxLength = 14;
                 maxPerMatch.onkeyup = function (event) { Fanex.FormatNumber(event, true); };

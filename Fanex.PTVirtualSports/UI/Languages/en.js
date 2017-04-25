@@ -49,5 +49,8 @@
     AGENT_MIN_PT: "Agent Min PT",
     SUPER_MAX_PT: "Super Max PT",
     SUPER_MIN_PT: "Super Min PT",
-    CONFIRM_UPDATE_MEMBERS_PT: "Confirm Update Members\'s PT"
+    CONFIRM_UPDATE_MEMBERS_PT: "Confirm Update Members\'s PT",
+
+    COPY_ALL_BETTING_LIMIT_FROM_VIRTUAL_SOCCER: "Copy all bet setting from Virtual Soccer",
+    COPY_ALL_POSITION_TAKING_FROM_VIRTUAL_SOCCER: "Copy all position taking from Virtual Soccer"
 }

@@ -1,6 +1,6 @@
 ﻿if (typeof (Fanex) == 'undefined') { // Require Fanex namespace
-    Fanex = {};
-    Object.prototype.copy = function () {
+    Fanex = {};    
+    /*Object.prototype.clone = function () {
         var newObj = (this instanceof Array) ? [] : {};
         for (i in this) {
             if (i == 'clone') continue;
@@ -11,19 +11,7 @@
             }
         }
         return newObj;
-    };
-    Object.prototype.clone = function () {
-        var newObj = (this instanceof Array) ? [] : {};
-        for (i in this) {
-            if (i == 'clone') continue;
-            if (this[i] && typeof this[i] == "object") {
-                newObj[i] = this[i].clone();
-            } else {
-                newObj[i] = this[i];
-            }
-        }
-        return newObj;
-    };
+    };*/
     String.Empty = ""; // Extend static string
     String.prototype.Format = function (args) {
         var formatted = this;
@@ -165,6 +153,22 @@
         }
     }
 }
+
+Fanex.copy = function (obj, to) {
+    if (obj == null || typeof obj != "object") return obj;
+    if (obj.constructor != Object && obj.constructor != Array) return obj;
+    if (obj.constructor == Date || obj.constructor == RegExp || obj.constructor == Function ||
+            obj.constructor == String || obj.constructor == Number || obj.constructor == Boolean)
+        return new obj.constructor(obj);
+
+    to = to || new obj.constructor();
+
+    for (var name in obj) {
+        to[name] = typeof to[name] == "undefined" ? Fanex.copy(obj[name], null) : to[name];
+    }
+
+    return to;
+};
 
 if (typeof (Fanex.PTVirtualSports) == 'undefined') { // Define Fanex.PTVirtualSports namespace
     Fanex.PTVirtualSports = {
@@ -341,7 +345,7 @@ if (typeof (Fanex.PTVirtualSports) == 'undefined') { // Define Fanex.PTVirtualSp
                 this.pt = item.pt;
             }
             this.suffixId = this.sportId + "$" + this.id;
-            this.context = Fanex.PTVirtualSports.CURRENT_CONTEXT.clone();
+            this.context = Fanex.copy(Fanex.PTVirtualSports.CURRENT_CONTEXT);
             if (this.context.formId == Fanex.PTVirtualSports.FormTypes.ADD) { // Use the same implementation for Edit PT / Add New
                 this.context.formId = Fanex.PTVirtualSports.FormTypes.EDIT_PT;
             }
@@ -375,7 +379,7 @@ if (typeof (Fanex.PTVirtualSports) == 'undefined') { // Define Fanex.PTVirtualSp
             this.elements = []; // Child bet type HTML elements
             this.items = []; // Bet type objects
             this.sportId = betTypeGroup.sportId;
-            this.context = Fanex.PTVirtualSports.CURRENT_CONTEXT.clone();
+            this.context = Fanex.copy(Fanex.PTVirtualSports.CURRENT_CONTEXT);
             if (this.context.formId == Fanex.PTVirtualSports.FormTypes.ADD) { // Use the same implementation for Edit PT / Add New
                 this.context.formId = Fanex.PTVirtualSports.FormTypes.EDIT_PT;
             };
@@ -383,7 +387,7 @@ if (typeof (Fanex.PTVirtualSports) == 'undefined') { // Define Fanex.PTVirtualSp
                 var count = this.items.length;
                 var result = [];
                 for (var i = 0; i < count; i++) {
-                    result[i] = this.items[i].Save().clone();
+                    result[i] = Fanex.copy(this.items[i].Save());
                 };
                 return {
                     id: this.id,
@@ -430,7 +434,7 @@ if (typeof (Fanex.PTVirtualSports) == 'undefined') { // Define Fanex.PTVirtualSp
             this.elements = []; // Child bet type group elements
             this.items = []; // Bet type group objects
             this.id = betTypeGroupSet.sportId; // Sport type id
-            this.context = Fanex.PTVirtualSports.CURRENT_CONTEXT.clone();
+            this.context = Fanex.copy(Fanex.PTVirtualSports.CURRENT_CONTEXT);
             if (this.context.formId == Fanex.PTVirtualSports.FormTypes.ADD) { // Use the same implementation for Edit PT / Add New
                 this.context.formId = Fanex.PTVirtualSports.FormTypes.EDIT_PT;
             };
@@ -546,7 +550,7 @@ if (typeof (Fanex.PTVirtualSports) == 'undefined') { // Define Fanex.PTVirtualSp
                 this.name = source.name;
                 this.sportTypes = source.sportTypes;
             };
-            this.context = Fanex.PTVirtualSports.CURRENT_CONTEXT.clone();
+            this.context = Fanex.copy(Fanex.PTVirtualSports.CURRENT_CONTEXT);
             if (this.context.formId == Fanex.PTVirtualSports.FormTypes.ADD) { // Use the same implementation for Edit PT / Add New
                 this.context.formId = Fanex.PTVirtualSports.FormTypes.EDIT_PT;
             };
