@@ -6,17 +6,24 @@
     using System.Data;
     using System.Reflection;
     using System.Web;
+    using Fanex.PTEngine.BusinessObjects;
     using Fanex.PTVirtualSports.BusinessObjects;
     using Fanex.PTVirtualSports.DataAccess;
     using Fanex.PTVirtualSports.Extension;
     using Fanex.PTVirtualSports.Utilities;
-    using Fanex.PTEngine.BusinessObjects;
 
     /// <summary>
     /// CustomerService class
     /// </summary>
     public class CustomerService : BaseCustomerService, ICustomerService
     {
+        private readonly byte _systemId;
+
+        public CustomerService(byte systemId = 1)
+        {
+            _systemId = systemId;
+        }
+
         /// <summary>
         /// DefaultCustomer method
         /// </summary>
@@ -568,8 +575,10 @@
                 parameters.Add("subaccid", context.SubAccId);
                 parameters.Add("language", context.Language);
                 parameters.Add("ip", context.IP);
+                parameters.Add("systemid", _systemId);
 
                 this.MapStatusSettingToSpParameters(parameters, newCustomerSettings);
+
                 resultDto.ResultStatus.Add(customerDataAccess.Acc_CustomerUpdDisableVS(parameters));
             }
 
@@ -678,6 +687,7 @@
                 parameters.Add("subaccid", context.SubAccId);
                 parameters.Add("language", context.Language);
                 parameters.Add("ip", context.IP);
+                parameters.Add("systemid", _systemId);
 
                 this.MapStatusSettingToSpParameters(parameters, newCustomerSettings);
 
@@ -808,6 +818,8 @@
                 parameters.Add("subaccid", context.SubAccId);
                 parameters.Add("language", context.Language);
                 parameters.Add("ip", context.IP);
+                parameters.Add("systemid", _systemId);
+
                 this.MapStatusSettingToSpParameters(parameters, newCustomerSettings);
 
                 resultDto.ResultStatus.Add(customerDataAccess.Acc_CustomerUpdDisableVS(parameters));
@@ -936,6 +948,8 @@
                 parameters.Add("subaccid", context.SubAccId);
                 parameters.Add("language", context.Language);
                 parameters.Add("ip", context.IP);
+                parameters.Add("systemid", _systemId);
+
                 this.MapStatusSettingToSpParameters(parameters, newCustomerSettings);
 
                 resultDto.ResultStatus.Add(customerDataAccess.Acc_CustomerUpdDisableVS(parameters));
